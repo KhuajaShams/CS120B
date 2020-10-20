@@ -15,25 +15,25 @@
 # that they are not ran in isolation but in the order shown and the state of the device is not reset or 
 # altered in between executions (unless preconditions are used).
 tests = [ {'description': 'Test empty PINA',
-    'steps': [ {'inputs': [('PINA',0x00)],'time': 300, 'iterations': 1 } ],
-    'expected': [('PORTB',0x00)],},
+    'steps': [ {'inputs': [('PINA',0x00)], 'iterations': 1 } ],
+    'expected': [('PORTC',0x00)],},
     
-    {'description': 'Test PINA = 0x01',
-    'steps': [ {'inputs': [('PINA',0x01)],'time': 300, 'iterations': 1 } ],
-    'expected': [('PORTB',0x01)],
+    {'description': 'Test PINA = 0x0F',
+    'steps': [ {'inputs': [('PINA',0x0F)], 'iterations': 1 } ],
+    'expected': [('PORTC',0x0F)],
     },
 
+    {'description': 'Test PINA = 0x01',
+    'steps': [ {'inputs': [('PINA',0x01)], 'iterations': 1 } ],
+    'expected': [('PORTC',0x01)],
+    },
     {'description': 'Test PINA = 0x02',
-    'steps': [ {'inputs': [('PINA',0x02)],'time': 300, 'iterations': 1 } ],
-    'expected': [('PORTB',0x00)],
+    'steps': [ {'inputs': [('PINA',0x02)], 'iterations': 1 } ],
+    'expected': [('PORTC',0x01)],
     },
     {'description': 'Test PINA = 0x03',
-    'steps': [ {'inputs': [('PINA',0x03)],'time': 300, 'iterations': 1 } ],
-    'expected': [('PORTB',0x00)],
-    },
-    {'description': 'Test PINA = 0xF1',
-    'steps': [ {'inputs': [('PINA',0xF1)],'time': 300, 'iterations': 1 } ],
-    'expected': [('PORTB',0x01)],
+    'steps': [ {'inputs': [('PINA',0x03)], 'iterations': 1 } ],
+    'expected': [('PORTC',0x02)],
     },
 
 
