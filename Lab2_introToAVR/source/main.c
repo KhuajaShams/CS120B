@@ -21,7 +21,7 @@ int main(void) {
    /* Insert your solution below */
     while (1) {
 	// 1) Read input
-	tmpA = PORTA & 0x0F;
+	tmpA = PINA & 0x0F;
 	unsigned char cntavail = 0x00;
 	// 2) Perform computation
 	unsigned int i = 0;
