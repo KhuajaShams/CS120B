@@ -33,7 +33,7 @@ int main(void) {
 		tmpA = tmpA >> 1;
 		i++;
 	}
-	tmpC = cntavail;
+	tmpC = 4 - cntavail;
 	if (cntavail == 4) {
 		tmpC = tmpC + 0x80;
         }

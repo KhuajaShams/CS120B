@@ -32,7 +32,7 @@ int main(void) {
 		tmpA = tmpA >> 1;
 		i++;
 	}
-	tmpC = cntavail;
+	tmpC = 4 - cntavail;
 	// 3) Write output
 	PORTC = tmpC;		
     }
