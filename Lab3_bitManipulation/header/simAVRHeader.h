@@ -12,8 +12,8 @@ AVR_MCU_VCD_FILE("build/results/Lab3_bitManipulation_trace.vcd",1000);
 const struct avr_mmcu_vcd_trace_t _mytrace[] _MMCU_ = {
     { AVR_MCU_VCD_SYMBOL("PINA0"), .mask = 1 << 0,.what = (void*)&PINA, } , // Example individual pin
     { AVR_MCU_VCD_SYMBOL("PINA"), .what = (void*)&PINA, } ,
-    { AVR_MCU_VCD_SYMBOL("PINB"), .what = (void*)&PINB, } , // Example full port
-    { AVR_MCU_VCD_SYMBOL("PORTC"), .what = (void*)&PORTC, } ,
+    { AVR_MCU_VCD_SYMBOL("PORTB"), .what = (void*)&PORTB, } , // Example full port
+    //{ AVR_MCU_VCD_SYMBOL("PORTC"), .what = (void*)&PORTC, } ,
 };
 
 /* Function to output through UART */
