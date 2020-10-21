@@ -20,7 +20,10 @@ int main(void) {
    while(1) {
       unsigned char tmpA = PINA & 0x0F;
       unsigned char tmpB = 0x00;
-      if (tmpA <= 2) {
+      if (tmpA <= 0) {
+	 tmpB = 0x00;
+      }
+      else if (tmpA <= 2) {
          tmpB = 0x20;  
       }
       else if (tmpA <= 4) {

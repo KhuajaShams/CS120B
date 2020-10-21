@@ -18,7 +18,7 @@
 
 tests = [ {'description': 'Test empty PINA',
     'steps': [ {'inputs': [('PINA',0x00)], 'iterations': 1 } ],
-    'expected': [('PORTB',0x60)],},
+    'expected': [('PORTB',0x40)],},
     
     {'description': 'Test PINA = 0x0F',
     'steps': [ {'inputs': [('PINA',0x0F)], 'iterations': 1 } ],
