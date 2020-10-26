@@ -1,7 +1,7 @@
 /*	Author: ksham004
  *  Partner(s) Name: Khuaja Shams
- *	Lab Section:
- *	Assignment: Lab #  Exercise #
+ *	Lab Section: 023
+ *	Assignment: Lab #4  Exercise #1
  *	Exercise Description: [optional - include for your own benefit]
  *
  *	I acknowledge all content contained herein, excluding template or example
