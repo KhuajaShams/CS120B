@@ -11,68 +11,84 @@
 #ifdef _SIMULATE_
 #include "simAVRHeader.h"
 #endif
-unsigned char tmpA = 0x00;
-unsigned char tmpB = 0x00;
 
-enum SM1_STATES { SM1_SMStart, SM1_Init, SM1_LightB1, SM1_Wait1, SM1_LightB0, SM1_Wait2} SM1_STATE;
+unsigned char tmpA0 = 0x00;
+unsigned char tmpA1 = 0x00;
+unsigned char tmpC = 0x00;
+
+enum SM1_STATES { SM1_SMStart, SM1_Init, SM1_Wait, SM1_Press0, SM1_Press1, SM1_Reset} SM1_STATE;
 void Tick_LoHi() { 
    switch(SM1_STATE) { 
       case SM1_SMStart:
-         SM1_STATE = SM1_Init;
+         if (1) {
+            SM1_STATE = SM1_Init;
+         }
          break;
       case SM1_Init:
-         if (tmpA) {
-            SM1_STATE = SM1_LightB1;
-         }
-         else if (!tmpA) {
-            SM1_STATE = SM1_Init;
-         }
-         else {
-            SM1_STATE = SM1_Init;
+         if (1) {
+            SM1_STATE = SM1_Wait;
          }
          break;
-      case SM1_LightB1:
-         if (tmpA) {
-            SM1_STATE = SM1_LightB1;
+      case SM1_Wait:
+         if (!tmpA0 && !tmpA1) {
+            SM1_STATE = SM1_Wait;
          }
-         else if (!tmpA) {
-            SM1_STATE = SM1_Wait1;
+         else if (tmpA0 && !tmpA1) {
+            SM1_STATE = SM1_Press0;
+         }
+         else if (tmpA0 && tmpA1) {
+            SM1_STATE = SM1_Reset;
+         }
+         else if (!tmpA0 && tmpA1) {
+            SM1_STATE = SM1_Press1;
          }
          else {
-            SM1_STATE = SM1_LightB1;
+            SM1_STATE = SM1_Wait;
          }
          break;
-      case SM1_Wait1:
-         if (!tmpA) {
-            SM1_STATE = SM1_Wait1;
+      case SM1_Press0:
+         if (tmpA0 && !tmpA1) {
+            SM1_STATE = SM1_Press0;
          }
-         else if (tmpA) {
-            SM1_STATE = SM1_LightB0;
+         else if (!tmpA0 && !tmpA1) {
+            SM1_STATE = SM1_Wait;
+	    if (tmpC < 9) {
+		tmpC = tmpC + 1;
+	    }
+         }
+         else if (tmpA0 && tmpA1) {
+            SM1_STATE = SM1_Reset;
+         }
+         else if (!tmpA0 && tmpA1) {
+            SM1_STATE = SM1_Press1;
          }
          else {
-            SM1_STATE = SM1_Wait1;
+            SM1_STATE = SM1_Press0;
          }
          break;
-      case SM1_LightB0:
-         if (tmpA) {
-            SM1_STATE = SM1_LightB0;
+      case SM1_Press1:
+         if (!tmpA0 && tmpA1) {
+            SM1_STATE = SM1_Press1;
          }
-         else if (!tmpA) {
-            SM1_STATE = SM1_Wait2;
+         else if (tmpA0 && tmpA1) {
+            SM1_STATE = SM1_Reset;
          }
+         else if (tmpA0 && !tmpA1) {
+            SM1_STATE = SM1_Press0;
+         }
+         else if (!tmpA0 && !tmpA1) {
+            SM1_STATE = SM1_Wait;
+            if (tmpC > 0) {
+		tmpC = tmpC - 1;
+	    }
+	 }
          else {
-            SM1_STATE = SM1_LightB0;
+            SM1_STATE = SM1_Press1;
          }
          break;
-      case SM1_Wait2:
-         if (!tmpA) {
-            SM1_STATE = SM1_Wait2;
-         }
-         else if (tmpA) {
-            SM1_STATE = SM1_LightB1;
-         }
-         else {
-            SM1_STATE = SM1_Wait2;
+      case SM1_Reset:
+         if (1) {
+            SM1_STATE = SM1_Wait;
          }
          break;
       default:
@@ -84,34 +100,33 @@ void Tick_LoHi() {
          
          break;
       case SM1_Init:
-		 tmpB = 0x01;
+         tmpC = 7;
          break;
-      case SM1_LightB1:
-         tmpB = 0x02;
-         break;
-      case SM1_Wait1:
+      case SM1_Wait:
          
          break;
-      case SM1_LightB0:
-         tmpB = 0x01;
-         break;
-      case SM1_Wait2:
+      case SM1_Press0:
          
+         break;
+      case SM1_Press1:
+         
+         break;
+      case SM1_Reset:
+         tmpC = 0;
          break;
    }
 }
 
-
-
-int main(void) {
+int main(){
     /* Insert DDR and PORT initializations */
     DDRA = 0x00; PORTA = 0x00;
-    DDRB = 0xFF; PORTB = 0x00;
+    DDRC = 0xFF; PORTC = 0x00;
     /* Insert your solution below */
     while (1) {
-	tmpA = PINA & 0x01;
-	Tick_LoHi();	
-	PORTB = tmpB;
+		tmpA0 = PINA & 0x01;
+		tmpA1 = PINA & 0x02;
+		Tick_LoHi();	
+		PORTC = tmpC;
     }
     return 1;
 }
